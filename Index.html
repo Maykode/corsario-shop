@@ -1,0 +1,1220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Corsario | Spanish Market Proposal</title>
+  <style>
+    :root {
+      --bg: #06111f;
+      --bg-2: #0b1b31;
+      --panel: rgba(255,255,255,0.05);
+      --panel-strong: rgba(255,255,255,0.08);
+      --line: rgba(255,255,255,0.12);
+      --text: #f3f8ff;
+      --muted: #bfd0e6;
+      --muted-2: #89a3c3;
+      --accent: #4da3ff;
+      --accent-2: #6ee7ff;
+      --accent-3: #7aa8ff;
+      --green: #39d98a;
+      --yellow: #ffd166;
+      --max: 1180px;
+      --shadow: 0 30px 70px rgba(0,0,0,0.35);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top center, rgba(77,163,255,0.20), transparent 30%),
+        radial-gradient(circle at 82% 14%, rgba(110,231,255,0.10), transparent 18%),
+        linear-gradient(180deg, #10233c 0%, #081426 48%, #050d18 100%);
+      line-height: 1.55;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    .container {
+      width: min(var(--max), calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      backdrop-filter: blur(14px);
+      background: rgba(7, 17, 31, 0.72);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .nav {
+      min-height: 78px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+    }
+
+    .brand-mark {
+      width: 36px;
+      height: 36px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      box-shadow: 0 12px 30px rgba(77,163,255,0.28);
+      font-size: 16px;
+      font-weight: 900;
+      color: #03111f;
+    }
+
+    .brand-name {
+      font-size: 24px;
+    }
+
+    .brand-name span {
+      color: #8fd3ff;
+      text-shadow: 0 0 18px rgba(77,163,255,0.22);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .nav-links a {
+      position: relative;
+      transition: color .22s ease, transform .22s ease;
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -8px;
+      width: 100%;
+      height: 2px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform .22s ease;
+    }
+
+    .nav-links a:hover {
+      color: #eef7ff;
+      transform: translateY(-1px);
+    }
+
+    .nav-links a:hover::after {
+      transform: scaleX(1);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .lang-switch {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      box-shadow: 0 10px 24px rgba(0,0,0,0.16);
+    }
+
+    .lang-btn {
+      min-width: 48px;
+      height: 36px;
+      border: 0;
+      border-radius: 999px;
+      background: transparent;
+      color: var(--muted);
+      font-weight: 800;
+      cursor: pointer;
+      transition: background .22s ease, color .22s ease, transform .22s ease;
+    }
+
+    .lang-btn:hover {
+      color: #eef7ff;
+      transform: translateY(-1px);
+    }
+
+    .lang-btn.active {
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      color: #04111d;
+      box-shadow: 0 10px 20px rgba(77,163,255,0.22);
+    }
+
+    .nav-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 44px;
+      padding: 0 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(77,163,255,0.24);
+      background: rgba(77,163,255,0.10);
+      color: #b9deff;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .nav-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 0 18px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: var(--text);
+      font-weight: 700;
+      white-space: nowrap;
+      transition: transform .22s ease, background .22s ease, border-color .22s ease, box-shadow .22s ease;
+    }
+
+    .nav-btn:hover {
+      transform: translateY(-2px);
+      background: rgba(255,255,255,0.08);
+      border-color: rgba(110,231,255,0.28);
+      box-shadow: 0 16px 32px rgba(0,0,0,0.22);
+    }
+
+    .hero {
+      padding: 58px 0 92px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 -120px 0;
+      height: 320px;
+      background: radial-gradient(circle at center, rgba(77,163,255,0.16), transparent 55%);
+      pointer-events: none;
+    }
+
+    .hero-wrap {
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .proposal-chip,
+    .live-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 18px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.16);
+      background: rgba(255,255,255,0.04);
+      color: #d7e9ff;
+      font-size: 14px;
+      margin: 0 6px 16px;
+    }
+
+    .live-chip {
+      border-color: rgba(57,217,138,0.18);
+      background: rgba(57,217,138,0.08);
+      color: #88efb8;
+    }
+
+    .dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 0 6px rgba(57,217,138,0.12);
+    }
+
+    h1 {
+      margin: 24px auto 0;
+      max-width: 900px;
+      font-size: clamp(54px, 9vw, 104px);
+      line-height: 0.96;
+      letter-spacing: -0.05em;
+      font-weight: 900;
+    }
+
+    .gradient {
+      background: linear-gradient(90deg, #d8ecff 0%, #ffffff 30%, #92d8ff 70%, #67efff 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero-text {
+      max-width: 860px;
+      margin: 26px auto 0;
+      color: var(--muted);
+      font-size: 22px;
+    }
+
+    .hero-text strong { color: #ffffff; }
+
+    .stats {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 30px;
+      margin-top: 30px;
+      color: #dcecff;
+      font-weight: 700;
+    }
+
+    .stats span {
+      color: var(--muted-2);
+      font-weight: 600;
+      margin-left: 6px;
+    }
+
+    .hero-actions {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 36px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 58px;
+      padding: 0 24px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.1);
+      font-size: 17px;
+      font-weight: 800;
+      transition: transform .18s ease, opacity .18s ease, background .18s ease, box-shadow .18s ease, border-color .18s ease;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.18);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(120deg, transparent 20%, rgba(255,255,255,0.18) 50%, transparent 80%);
+      transform: translateX(-120%);
+      transition: transform .55s ease;
+      pointer-events: none;
+    }
+
+    .btn:hover::before {
+      transform: translateX(120%);
+    }
+
+    .btn:hover { transform: translateY(-2px); }
+
+    .btn-primary {
+      background: linear-gradient(90deg, #4f92ff, #69b8ff 48%, #6ee7ff 100%);
+      color: #03111f;
+      border-color: transparent;
+      box-shadow: 0 20px 40px rgba(77,163,255,0.22);
+    }
+
+    .btn-secondary,
+    .btn-dark {
+      background: rgba(255,255,255,0.04);
+      color: #f6fbff;
+    }
+
+    .btn-dark {
+      min-width: 210px;
+      justify-content: center;
+      background: rgba(255,255,255,0.03);
+      border-color: rgba(255,255,255,0.08);
+    }
+
+    .explore {
+      margin-top: 42px;
+      color: var(--muted-2);
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      font-size: 12px;
+    }
+
+    .hero-panel {
+      margin-top: 54px;
+      padding: 22px;
+      border-radius: 30px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: var(--shadow);
+      text-align: left;
+    }
+
+    .panel-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 22px;
+    }
+
+    .mock {
+      border-radius: 24px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: linear-gradient(180deg, rgba(12, 26, 46, 0.94), rgba(6, 16, 30, 0.98));
+      overflow: hidden;
+      min-height: 360px;
+    }
+
+    .mock-top {
+      display: flex;
+      gap: 8px;
+      padding: 14px 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .mock-top span {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.2);
+    }
+
+    .mock-body {
+      padding: 24px;
+      display: grid;
+      gap: 18px;
+    }
+
+    .mini-card {
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.04);
+      padding: 20px;
+    }
+
+    .mini-title {
+      font-size: 14px;
+      color: #d1e6ff;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      margin-bottom: 10px;
+    }
+
+    .mini-big {
+      font-size: 26px;
+      font-weight: 900;
+      margin-bottom: 8px;
+    }
+
+    .mini-copy { color: var(--muted); }
+
+    .side-stack {
+      display: grid;
+      gap: 18px;
+    }
+
+    .status-box,
+    .contact-box,
+    .proposal-box {
+      padding: 22px;
+      border-radius: 24px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.04);
+    }
+
+    .status-box strong,
+    .proposal-box strong { color: #fff; }
+
+    .status-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 12px;
+      color: var(--muted);
+    }
+
+    .status-row b { color: #fff; }
+
+    section {
+      padding: 82px 0;
+    }
+
+    .section-head {
+      text-align: center;
+      margin-bottom: 34px;
+    }
+
+    .eyebrow {
+      color: #8fcfff;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      font-size: 13px;
+      margin-bottom: 14px;
+    }
+
+    .section-title {
+      font-size: clamp(34px, 5vw, 60px);
+      line-height: 1.04;
+      letter-spacing: -0.04em;
+      margin: 0;
+    }
+
+    .section-title .soft {
+      color: #8fdcff;
+    }
+
+    .section-copy {
+      max-width: 760px;
+      margin: 16px auto 0;
+      color: var(--muted);
+      font-size: 18px;
+    }
+
+    .feature-grid,
+    .catalog,
+    .flow-grid,
+    .contact-grid,
+    .faq-grid {
+      display: grid;
+      gap: 22px;
+    }
+
+    .feature-grid { grid-template-columns: repeat(4, 1fr); }
+    .catalog { grid-template-columns: repeat(3, 1fr); }
+    .flow-grid { grid-template-columns: repeat(4, 1fr); }
+    .contact-grid { grid-template-columns: 1.2fr 0.8fr; }
+    .faq-grid { grid-template-columns: repeat(2, 1fr); }
+
+    .feature,
+    .flow,
+    .faq,
+    .contact-panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      padding: 26px;
+      box-shadow: var(--shadow);
+      transition: transform .24s ease, border-color .24s ease, background .24s ease, box-shadow .24s ease;
+    }
+
+    .feature:hover,
+    .flow:hover,
+    .faq:hover,
+    .contact-panel:hover {
+      transform: translateY(-6px);
+      border-color: rgba(110,231,255,0.22);
+      background: rgba(255,255,255,0.065);
+      box-shadow: 0 26px 54px rgba(0,0,0,0.28);
+    }
+
+    .feature h3,
+    .flow h3,
+    .faq h3,
+    .contact-panel h3,
+    .product h3 {
+      margin: 0 0 12px;
+      font-size: 22px;
+      line-height: 1.1;
+    }
+
+    .feature p,
+    .flow p,
+    .faq p,
+    .contact-panel p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .icon-badge {
+      width: 46px;
+      height: 46px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, rgba(77,163,255,0.20), rgba(110,231,255,0.18));
+      border: 1px solid rgba(255,255,255,0.1);
+      margin-bottom: 16px;
+      font-weight: 800;
+      color: #dff5ff;
+    }
+
+    .product {
+      position: relative;
+      border-radius: 30px;
+      overflow: hidden;
+      min-height: 430px;
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: var(--shadow);
+      background:
+        linear-gradient(180deg, rgba(0,0,0,0.00) 10%, rgba(0,0,0,0.76) 88%),
+        radial-gradient(circle at top left, rgba(255,255,255,0.18), transparent 30%),
+        linear-gradient(135deg, #153756, #0d2237 52%, #08121d);
+      transition: transform .28s ease, box-shadow .28s ease, border-color .28s ease, filter .28s ease;
+    }
+
+    .product::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(110,231,255,0.10), transparent 35%, transparent 65%, rgba(255,255,255,0.06));
+      opacity: 0;
+      transition: opacity .28s ease;
+      pointer-events: none;
+    }
+
+    .product:hover {
+      transform: translateY(-8px) scale(1.01);
+      border-color: rgba(110,231,255,0.24);
+      box-shadow: 0 34px 72px rgba(0,0,0,0.34);
+      filter: saturate(1.08);
+    }
+
+    .product:hover::after {
+      opacity: 1;
+    }
+
+    .product.p2 {
+      background:
+        linear-gradient(180deg, rgba(0,0,0,0.00) 10%, rgba(0,0,0,0.76) 88%),
+        radial-gradient(circle at 70% 10%, rgba(255,255,255,0.16), transparent 26%),
+        linear-gradient(135deg, #1a4a61, #123149 54%, #0a1826);
+    }
+
+    .product.p3 {
+      background:
+        linear-gradient(180deg, rgba(0,0,0,0.00) 10%, rgba(0,0,0,0.78) 88%),
+        radial-gradient(circle at top center, rgba(255,255,255,0.14), transparent 24%),
+        linear-gradient(135deg, #25437a, #162846 54%, #0a1422);
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 18px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 800;
+      color: #0a1320;
+      background: #b8e6ff;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+      line-height: 1;
+      white-space: nowrap;
+      margin-bottom: 18px;
+    }
+
+    .product-content {
+      position: absolute;
+      inset: auto 0 0 0;
+      padding: 28px;
+    }
+
+    .product p {
+      color: #d8e9fb;
+      margin: 0 0 14px;
+    }
+
+    .bullets {
+      display: grid;
+      gap: 8px;
+      margin: 0 0 18px;
+      color: #c3d8ee;
+      font-size: 15px;
+    }
+
+    .price {
+      margin-top: 12px;
+      font-size: 16px;
+      color: #c0d5eb;
+    }
+
+    .price strong {
+      color: #fff;
+      font-size: 42px;
+      line-height: 1;
+      letter-spacing: -0.04em;
+    }
+
+    .buy-row {
+      display: flex;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .pill-btn {
+      flex: 1;
+      min-height: 56px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.08);
+      font-weight: 800;
+      backdrop-filter: blur(8px);
+      appearance: none;
+      cursor: pointer;
+      color: #f4f9ff;
+      transition: transform .2s ease, background .2s ease, border-color .2s ease, box-shadow .2s ease;
+    }
+
+    .pill-btn:hover {
+      transform: translateY(-2px);
+      background: rgba(255,255,255,0.12);
+      border-color: rgba(110,231,255,0.28);
+      box-shadow: 0 18px 32px rgba(0,0,0,0.22);
+    }
+
+    .pill-btn:active {
+      transform: translateY(0);
+    }
+
+    .flow-number {
+      font-size: 13px;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: #8ed4ff;
+      margin-bottom: 10px;
+    }
+
+    .wide-banner {
+      border-radius: 34px;
+      padding: 36px;
+      border: 1px solid rgba(255,255,255,0.1);
+      background:
+        radial-gradient(circle at 20% 20%, rgba(77,163,255,0.20), transparent 28%),
+        linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+      box-shadow: var(--shadow);
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .wide-banner h2 {
+      margin: 0;
+      font-size: clamp(32px, 4vw, 52px);
+      line-height: 1.02;
+      letter-spacing: -0.04em;
+    }
+
+    .wide-banner p {
+      color: var(--muted);
+      font-size: 18px;
+      margin: 16px 0 0;
+    }
+
+    .contact-list {
+      display: grid;
+      gap: 16px;
+      margin-top: 22px;
+    }
+
+    .contact-item {
+      padding: 18px 20px;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.04);
+      transition: transform .22s ease, border-color .22s ease, background .22s ease;
+    }
+
+    .contact-item:hover {
+      transform: translateY(-3px);
+      border-color: rgba(110,231,255,0.22);
+      background: rgba(255,255,255,0.06);
+    }
+
+    .label {
+      color: var(--muted-2);
+      font-size: 13px;
+      margin-bottom: 6px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .value {
+      font-size: 18px;
+      font-weight: 800;
+    }
+
+    .proposal-note {
+      margin-top: 22px;
+      padding: 18px 20px;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.04);
+      color: var(--muted);
+    }
+
+    footer {
+      padding: 34px 0 48px;
+      color: var(--muted-2);
+      text-align: center;
+      font-size: 14px;
+    }
+
+    @media (max-width: 1100px) {
+      .feature-grid { grid-template-columns: repeat(2, 1fr); }
+      .catalog { grid-template-columns: 1fr; }
+      .flow-grid { grid-template-columns: repeat(2, 1fr); }
+      .panel-grid,
+      .wide-banner,
+      .contact-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 840px) {
+      .nav { flex-wrap: wrap; justify-content: center; padding: 14px 0; }
+      .nav-links { order: 3; width: 100%; justify-content: center; flex-wrap: wrap; gap: 14px; }
+      .faq-grid,
+      .feature-grid,
+      .flow-grid { grid-template-columns: 1fr; }
+      .hero-text { font-size: 19px; }
+      h1 { font-size: clamp(42px, 14vw, 74px); }
+      .stats { gap: 18px; }
+      .hero-actions { gap: 10px; }
+      .btn { min-height: 52px; font-size: 15px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="container nav">
+      <a href="#home" class="brand">
+        <div class="brand-mark">C</div>
+        <div class="brand-name">CORSARIO <span>STORE</span></div>
+      </a>
+
+      <nav class="nav-links">
+        <a href="#home">Home</a>
+        <a href="#concept">Store Concept</a>
+        <a href="#products">Products</a>
+        <a href="#flow">How It Works</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+
+      <div class="nav-actions">
+        <div class="lang-switch" aria-label="Language selector">
+          <button class="lang-btn active" type="button" data-lang="en">EN</button>
+          <button class="lang-btn" type="button" data-lang="es">ES</button>
+          <button class="lang-btn" type="button" data-lang="ru">RU</button>
+        </div>
+        <div class="nav-badge">Partnership Proposal</div>
+        <a class="nav-btn" href="#contact">Contact</a>
+      </div>
+    </div>
+  </div>
+
+  <header class="hero" id="home">
+    <div class="container hero-wrap">
+      <div>
+        <div class="proposal-chip">Official proposal for the Spanish-speaking market</div>
+        <div class="live-chip"><span class="dot"></span> Storefront concept with instant code delivery flow</div>
+      </div>
+
+      <h1>
+        Create a Dedicated
+        <span class="gradient">Umbrella Partner Storefront</span>
+      </h1>
+
+      <p class="hero-text">
+        A dedicated <strong>Spanish-language partner channel</strong> for Spain and Latin America, with localized support, simpler onboarding, easier payment methods, and a structure designed to present Umbrella professionally to a new audience while remaining an official partnership proposal.
+      </p>
+
+      <div class="stats">
+        <div>Spanish Market <span>focused rollout</span></div>
+        <div>Localized UX <span>support + payments</span></div>
+        <div>Instant Delivery <span>code-based flow</span></div>
+        <div>Partner Model <span>proposal structure</span></div>
+      </div>
+
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#products">Preview Store Concept</a>
+        <a class="btn btn-dark" href="#flow">How the flow works</a>
+        <a class="btn btn-dark" href="#contact">Contact details</a>
+      </div>
+
+      <div class="explore">Explore</div>
+
+      <div class="hero-panel">
+        <div class="panel-grid">
+          <div class="mock">
+            <div class="mock-top"><span></span><span></span><span></span></div>
+            <div class="mock-body">
+              <div class="mini-card">
+                <div class="mini-title">Storefront idea</div>
+                <div class="mini-big">Localized sales page for Umbrella</div>
+                <div class="mini-copy">The goal is to create a cleaner, more trusted buying experience for Spanish-speaking users, while keeping the commercial flow professional and scalable.</div>
+              </div>
+              <div class="mini-card">
+                <div class="mini-title">Positioning</div>
+                <div class="mini-copy">Official partner proposal, not just a referral page. Designed to look and operate like a serious digital storefront.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="side-stack">
+            <div class="status-box">
+              <strong>Proposal focus</strong>
+              <div class="status-row"><span>Region</span><b>Spain + LATAM</b></div>
+              <div class="status-row"><span>Language</span><b>Spanish</b></div>
+              <div class="status-row"><span>Model</span><b>Partner / Reseller</b></div>
+              <div class="status-row"><span>Delivery</span><b>Activation code</b></div>
+            </div>
+
+            <div class="proposal-box">
+              <strong>Why this page looks like a real store</strong>
+              <p style="margin:12px 0 0;color:var(--muted);">
+                The intention is to demonstrate not only interest in cooperation, but also the ability to build a polished customer-facing channel that can realistically convert Spanish-speaking traffic.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section id="concept">
+    <div class="container">
+      <div class="section-head">
+        <div class="eyebrow">Store structure</div>
+        <h2 class="section-title">A proposal that already <span class="soft">feels like a working business</span></h2>
+        <p class="section-copy">
+          This concept is intentionally more complete than a simple presentation page. It is designed to show how a Spanish storefront could look, communicate, and convert while still being clearly framed as a partnership proposal.
+        </p>
+      </div>
+
+      <div class="feature-grid">
+        <article class="feature">
+          <div class="icon-badge">01</div>
+          <h3>Local trust</h3>
+          <p>Spanish-language copy, better explanations, and a more familiar buying experience for users in Spain and Latin America.</p>
+        </article>
+        <article class="feature">
+          <div class="icon-badge">02</div>
+          <h3>Cleaner checkout positioning</h3>
+          <p>Simple product structure, faster decision-making, and less friction compared with unfamiliar external purchase flows.</p>
+        </article>
+        <article class="feature">
+          <div class="icon-badge">03</div>
+          <h3>Code delivery concept</h3>
+          <p>The page is designed around a digital-delivery model where the customer pays and then receives a valid activation code.</p>
+        </article>
+        <article class="feature">
+          <div class="icon-badge">04</div>
+          <h3>Scalable channel</h3>
+          <p>This can start as a dedicated Umbrella proposal and later evolve into a stronger Spanish-facing storefront structure.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="products">
+    <div class="container">
+      <div class="section-head">
+        <div class="eyebrow">Store preview</div>
+        <h2 class="section-title">What the <span class="soft">product catalog</span> could look like</h2>
+        <p class="section-copy">
+          These cards simulate a real storefront layout while remaining part of the proposal. They show how subscription durations, messaging, and buying actions could be presented in a polished way.
+        </p>
+      </div>
+
+      <div class="catalog">
+        <article class="product p1">
+          <div class="product-content">
+            <div class="tag" style="min-width: 132px;">30 Days</div>
+            <h3>Umbrella 30 Days</h3>
+            <p>Core monthly-style offer presented in a clear and familiar format for Spanish-speaking customers.</p>
+            <div class="bullets">
+              <div>✓ Spanish storefront presentation</div>
+              <div>✓ Instant code delivery model</div>
+              <div>✓ Clear subscription format</div>
+              <div>✓ Localized guidance and support</div>
+            </div>
+            <div class="price">From <strong>$10</strong> / plan</div>
+            <div class="buy-row">
+              <button class="pill-btn" type="button">View Plan</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="product p2">
+          <div class="product-content">
+            <div class="tag" style="background:#9fe7ff;color:#0a1320;min-width:132px;">90 Days</div>
+            <h3>Umbrella 90 Days</h3>
+            <p>Extended subscription example with stronger value positioning and a more committed customer profile.</p>
+            <div class="bullets">
+              <div>✓ Higher-value positioning</div>
+              <div>✓ Stronger product framing</div>
+              <div>✓ Familiar ecommerce layout</div>
+              <div>✓ Better trust-building design</div>
+            </div>
+            <div class="price">From <strong>$24</strong> / plan</div>
+            <div class="buy-row">
+              <button class="pill-btn" type="button">View Plan</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="product p3">
+          <div class="product-content">
+            <div class="tag" style="background:#c6d3ff;color:#0a1320;min-width:138px;">Lifetime</div>
+            <h3>Umbrella Lifetime</h3>
+            <p>Premium lifetime option example, shown with a higher-tier offer structure and clearer pricing hierarchy.</p>
+            <div class="bullets">
+              <div>✓ Premium offer presentation</div>
+              <div>✓ Clean pricing hierarchy</div>
+              <div>✓ Ready for FAQ integration</div>
+              <div>✓ Built for future scale</div>
+            </div>
+            <div class="price">From <strong>$349</strong> / plan</div>
+            <div class="buy-row">
+              <button class="pill-btn" type="button">View Plan</button>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="flow">
+    <div class="container">
+      <div class="section-head">
+        <div class="eyebrow">Business flow</div>
+        <h2 class="section-title">How the <span class="soft">sales flow</span> is intended to work</h2>
+        <p class="section-copy">
+          This is the core of the proposal: a local storefront that handles the customer experience while remaining connected to an official partner or reseller model for valid code delivery.
+        </p>
+      </div>
+
+      <div class="flow-grid">
+        <article class="flow">
+          <div class="flow-number">Step 01</div>
+          <h3>Customer buys on local site</h3>
+          <p>The customer chooses a subscription on a Spanish-language storefront with easier payment options and clearer onboarding.</p>
+        </article>
+        <article class="flow">
+          <div class="flow-number">Step 02</div>
+          <h3>Payment is confirmed</h3>
+          <p>The site handles checkout and confirms the order using a simpler and more trusted local-facing flow.</p>
+        </article>
+        <article class="flow">
+          <div class="flow-number">Step 03</div>
+          <h3>Valid activation code is obtained</h3>
+          <p>Through an official reseller panel, API, balance system, or another approved mechanism.</p>
+        </article>
+        <article class="flow">
+          <div class="flow-number">Step 04</div>
+          <h3>Code is delivered instantly</h3>
+          <p>The customer receives the activation code immediately after payment, completing a clean digital-delivery flow.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="wide-banner">
+        <div>
+          <div class="eyebrow">Proposal value</div>
+          <h2>This is not just a profile page — it is a preview of a <span class="soft">real Spanish storefront strategy</span>.</h2>
+          <p>
+            The page is structured to show seriousness, execution ability, and a realistic commercial vision for the Spanish-speaking market, while still keeping Umbrella at the center of the proposal.
+          </p>
+        </div>
+        <div>
+          <div class="contact-panel">
+            <h3>What this demonstrates</h3>
+            <p>Brand presentation, storefront structure, local-market framing, and a practical code-delivery sales model built around official cooperation.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="container">
+      <div class="section-head">
+        <div class="eyebrow">FAQ / Proposal notes</div>
+        <h2 class="section-title">Questions this <span class="soft">proposal already answers</span></h2>
+      </div>
+
+      <div class="faq-grid">
+        <article class="faq">
+          <h3>Is this page a real storefront?</h3>
+          <p>Not yet. It is a polished concept page designed to show how an official Spanish-facing storefront for Umbrella could look and function.</p>
+        </article>
+        <article class="faq">
+          <h3>Why does it look like a complete shop?</h3>
+          <p>Because the goal is to present a practical business concept, not only a message of interest. A stronger presentation gives a clearer view of execution capability.</p>
+        </article>
+        <article class="faq">
+          <h3>What is needed from Umbrella?</h3>
+          <p>An official partner/reseller format, plus clarity on how valid codes can be issued through an approved system after customer payment.</p>
+        </article>
+        <article class="faq">
+          <h3>What is the market focus?</h3>
+          <p>Spain and Latin America, with communication, support, and purchase flow designed specifically for Spanish-speaking customers.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="container">
+      <div class="contact-grid">
+        <div class="contact-panel">
+          <div class="eyebrow">Contact</div>
+          <h3>Direct details for senior review</h3>
+          <p>
+            This proposal page can be shared directly with management. Contact details below can be replaced with the channels you want to use publicly.
+          </p>
+          <div class="contact-list">
+            <div class="contact-item">
+              <div class="label">Name</div>
+              <div class="value">Corsario</div>
+            </div>
+            <div class="contact-item">
+              <div class="label">Telegram</div>
+              <div class="value">@yourtelegram</div>
+            </div>
+            <div class="contact-item">
+              <div class="label">Email</div>
+              <div class="value">contact@example.com</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="contact-panel">
+          <div class="eyebrow">Proposal summary</div>
+          <h3>What I am proposing</h3>
+          <p>
+            A dedicated Spanish-language Umbrella storefront concept with a localized customer journey, more convenient payment positioning, and an official code-delivery workflow through approved cooperation.
+          </p>
+          <div class="proposal-note">
+            This page is intentionally framed as an Umbrella-specific proposal. It is designed to support a serious partnership conversation, not just a referral inquiry.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">Corsario Store — Spanish market partnership proposal</div>
+  </footer>
+  <script>
+    const i18n = {
+      en: {
+        badge: 'Partnership Proposal',
+        contact: 'Contact',
+        home: 'Home',
+        concept: 'Store Concept',
+        products: 'Products',
+        flow: 'How It Works',
+        faq: 'FAQ'
+      },
+      es: {
+        badge: 'Propuesta de Partnership',
+        contact: 'Contacto',
+        home: 'Inicio',
+        concept: 'Concepto',
+        products: 'Planes',
+        flow: 'Cómo Funciona',
+        faq: 'FAQ'
+      },
+      ru: {
+        badge: 'Партнёрское предложение',
+        contact: 'Контакты',
+        home: 'Главная',
+        concept: 'Концепт',
+        products: 'Планы',
+        flow: 'Как это работает',
+        faq: 'FAQ'
+      }
+    };
+
+    const content = {
+      en: {
+        proposalChip: 'Official proposal for the Spanish-speaking market',
+        liveChip: 'Storefront concept with instant code delivery flow',
+        heroTitle: 'Create a Dedicated',
+        heroTitleGradient: 'Umbrella Partner Storefront',
+        heroText: 'A dedicated <strong>Spanish-language partner channel</strong> for Spain and Latin America, with localized support, simpler onboarding, easier payment methods, and a structure designed to present Umbrella professionally to a new audience while remaining an official partnership proposal.'
+      },
+      es: {
+        proposalChip: 'Propuesta oficial para el mercado hispanohablante',
+        liveChip: 'Concepto de storefront con entrega instantánea de códigos',
+        heroTitle: 'Crear un',
+        heroTitleGradient: 'Storefront Partner de Umbrella',
+        heroText: 'Un <strong>canal partner en español</strong> para España y Latinoamérica, con soporte localizado, onboarding más simple, métodos de pago más cómodos y una estructura pensada para presentar Umbrella de forma profesional a una nueva audiencia, manteniéndose como una propuesta oficial de colaboración.'
+      },
+      ru: {
+        proposalChip: 'Официальное предложение для испаноязычного рынка',
+        liveChip: 'Концепт storefront с мгновенной выдачей кодов',
+        heroTitle: 'Создать отдельный',
+        heroTitleGradient: 'Umbrella Partner Storefront',
+        heroText: 'Отдельный <strong>партнёрский канал на испанском языке</strong> для Испании и Латинской Америки: локализованная поддержка, более простой onboarding, удобные способы оплаты и структура, позволяющая профессионально представить Umbrella новой аудитории, оставаясь официальным партнёрским предложением.'
+      }
+    };
+
+    function setLang(lang) {
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.lang === lang);
+      });
+
+      const nav = i18n[lang] || i18n.en;
+      const text = content[lang] || content.en;
+
+      const navLinks = document.querySelectorAll('.nav-links a');
+      if (navLinks[0]) navLinks[0].textContent = nav.home;
+      if (navLinks[1]) navLinks[1].textContent = nav.concept;
+      if (navLinks[2]) navLinks[2].textContent = nav.products;
+      if (navLinks[3]) navLinks[3].textContent = nav.flow;
+      if (navLinks[4]) navLinks[4].textContent = nav.faq;
+
+      const badge = document.querySelector('.nav-badge');
+      const contactBtn = document.querySelector('.nav-btn');
+      const chips = document.querySelectorAll('.proposal-chip, .live-chip');
+      const heroTitle = document.querySelector('h1');
+      const heroText = document.querySelector('.hero-text');
+
+      if (badge) badge.textContent = nav.badge;
+      if (contactBtn) contactBtn.textContent = nav.contact;
+      if (chips[0]) chips[0].textContent = text.proposalChip;
+      if (chips[1]) chips[1].innerHTML = '<span class="dot"></span> ' + text.liveChip;
+      if (heroTitle) heroTitle.innerHTML = text.heroTitle + '<span class="gradient">' + text.heroTitleGradient + '</span>';
+      if (heroText) heroText.innerHTML = text.heroText;
+
+      try { localStorage.setItem('corsario_lang', lang); } catch (e) {}
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      let lang = 'en';
+      try { lang = localStorage.getItem('corsario_lang') || 'en'; } catch (e) {}
+      setLang(lang);
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.addEventListener('click', () => setLang(btn.dataset.lang));
+      });
+    });
+  </script>
+</body>
+</html>
