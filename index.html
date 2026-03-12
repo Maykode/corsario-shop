@@ -59,7 +59,56 @@
       align-items: center;
       justify-content: space-between;
       gap: 20px;
+      position: relative;
     }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      min-width: 0;
+    }
+
+    .menu-toggle {
+      display: none;
+      width: 46px;
+      height: 46px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.05);
+      border-radius: 14px;
+      cursor: pointer;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      transition: transform .2s ease, background .2s ease, border-color .2s ease;
+    }
+
+    .menu-toggle:hover {
+      transform: translateY(-1px);
+      background: rgba(255,255,255,0.08);
+      border-color: rgba(110,231,255,0.24);
+    }
+
+    .menu-toggle span,
+    .menu-toggle::before,
+    .menu-toggle::after {
+      content: "";
+      display: block;
+      width: 18px;
+      height: 2px;
+      border-radius: 999px;
+      background: #eef7ff;
+      transition: transform .22s ease, opacity .22s ease;
+      position: absolute;
+    }
+
+    .menu-toggle span { transform: translateY(0); }
+    .menu-toggle::before { transform: translateY(-6px); }
+    .menu-toggle::after { transform: translateY(6px); }
+
+    .menu-toggle.active span { opacity: 0; }
+    .menu-toggle.active::before { transform: rotate(45deg); }
+    .menu-toggle.active::after { transform: rotate(-45deg); }
 
     .brand {
       display: flex;
@@ -783,8 +832,77 @@
     }
 
     @media (max-width: 840px) {
-      .nav { flex-wrap: wrap; justify-content: center; padding: 14px 0; }
-      .nav-links { order: 3; width: 100%; justify-content: center; flex-wrap: wrap; gap: 14px; }
+      .nav {
+        flex-wrap: wrap;
+        justify-content: space-between;
+        padding: 14px 0;
+      }
+
+      .nav-left {
+        flex: 1;
+        justify-content: space-between;
+      }
+
+      .menu-toggle {
+        display: inline-flex;
+        position: relative;
+      }
+
+      .brand-name {
+        font-size: 20px;
+      }
+
+      .nav-links {
+        display: none;
+        width: 100%;
+        order: 3;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+        padding: 14px;
+        margin-top: 12px;
+        border-radius: 20px;
+        background: rgba(255,255,255,0.04);
+        border: 1px solid rgba(255,255,255,0.08);
+      }
+
+      .nav-links.open {
+        display: flex;
+      }
+
+      .nav-links a {
+        padding: 12px 14px;
+        border-radius: 14px;
+        background: rgba(255,255,255,0.03);
+      }
+
+      .nav-links a::after {
+        display: none;
+      }
+
+      .nav-actions {
+        width: 100%;
+        order: 4;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        margin-top: 12px;
+      }
+
+      .lang-switch {
+        order: 1;
+      }
+
+      .nav-badge {
+        order: 2;
+        flex: 1;
+        justify-content: center;
+      }
+
+      .nav-btn {
+        order: 3;
+        width: 100%;
+      }
+
       .faq-grid,
       .feature-grid,
       .flow-grid { grid-template-columns: 1fr; }
@@ -799,10 +917,12 @@
 <body>
   <div class="topbar">
     <div class="container nav">
-      <a href="#home" class="brand">
-        <div class="brand-mark">C</div>
-        <div class="brand-name">CORSARIO <span>STORE</span></div>
-      </a>
+      <div class="nav-left">
+        <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false">
+          <span></span>
+        </button>
+        
+      </div>
 
       <nav class="nav-links">
         <a href="#home">Home</a>
@@ -1216,5 +1336,28 @@
       });
     });
   </script>
+  <script>
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navLinks = document.querySelector('.nav-links');
+
+    if (menuToggle && navLinks) {
+      menuToggle.addEventListener('click', () => {
+        const open = navLinks.classList.toggle('open');
+        menuToggle.classList.toggle('active', open);
+        menuToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+
+      navLinks.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          if (window.innerWidth <= 840) {
+            navLinks.classList.remove('open');
+            menuToggle.classList.remove('active');
+            menuToggle.setAttribute('aria-expanded', 'false');
+          }
+        });
+      });
+    }
+  </script>
 </body>
 </html>
+
